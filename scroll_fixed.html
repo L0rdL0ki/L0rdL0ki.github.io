@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Seven Games of Ymir</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: #0a0704;
+    font-family: 'IM Fell English', Georgia, serif;
+  }
+
+  #stage {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at 50% 40%, #1c1208 0%, #0a0704 70%);
+    overflow: hidden;
+  }
+
+  .ember {
+    position: absolute;
+    border-radius: 50%;
+    background: #C9A84C;
+    opacity: 0;
+    pointer-events: none;
+    animation: ember-rise linear infinite;
+  }
+  @keyframes ember-rise {
+    0%   { opacity: 0; transform: translateY(0) translateX(0); }
+    15%  { opacity: 0.9; }
+    85%  { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(-160px) translateX(var(--dx)); }
+  }
+
+  /* ── ROLLED SCROLL ── */
+  #rolled {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    filter: drop-shadow(0 24px 60px rgba(0,0,0,0.85));
+    z-index: 10;
+    /* bob animation via class so we can remove it cleanly */
+  }
+  #rolled.bobbing { animation: bob 3.2s ease-in-out infinite; }
+  #rolled:hover { filter: drop-shadow(0 24px 80px rgba(201,168,76,0.55)); }
+  @keyframes bob {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+
+  .cap {
+    width: 340px;
+    height: 26px;
+    background: linear-gradient(180deg,#7A5010 0%,#C9A84C 28%,#F0D878 50%,#C9A84C 72%,#7A5010 100%);
+    border-radius: 13px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.22);
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+  }
+  .cap::before, .cap::after {
+    content:'';
+    position:absolute;
+    top:50%; transform:translateY(-50%);
+    width:28px; height:28px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#F0D878,#8B5010);
+    box-shadow:0 3px 10px rgba(0,0,0,0.65);
+  }
+  .cap::before { left:-11px; }
+  .cap::after  { right:-11px; }
+
+  #cylinder {
+    width: 300px;
+    height: 220px;
+    background:
+      linear-gradient(90deg,
+        rgba(0,0,0,0.55) 0%,
+        transparent 14%,
+        transparent 86%,
+        rgba(0,0,0,0.55) 100%
+      ),
+      repeating-linear-gradient(180deg,
+        transparent 0px, transparent 5px,
+        rgba(0,0,0,0.06) 5px, rgba(0,0,0,0.06) 6px
+      ),
+      linear-gradient(180deg, #E2C98A 0%, #C8A86A 40%, #D4B07A 70%, #BF9A58 100%);
+    border-left:  3px solid #7A5010;
+    border-right: 3px solid #7A5010;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  #cylinder::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,0.18) 0%,transparent 18%,transparent 82%,rgba(0,0,0,0.18) 100%);
+    pointer-events:none;
+    z-index:1;
+  }
+
+  #roll-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    z-index: 2;
+    pointer-events: none;
+    transform: perspective(500px) rotateX(4deg);
+  }
+  #roll-label .rune {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 15px;
+    color: #4A2800;
+    letter-spacing: 0.35em;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+  }
+  #roll-label .title-big {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #3A1800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    text-align: center;
+    line-height: 1.3;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.25);
+  }
+  #roll-label .sub {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    color: #6B3D00;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  #seal-group {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .ribbon-strip {
+    width: 8px;
+    height: 28px;
+    background: linear-gradient(180deg,#900e0e,#c0392b);
+    margin: 0 auto;
+  }
+  .wax {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%,#d94f3a,#7b1a10 65%,#3e0a06);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,150,100,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 17px;
+    color: rgba(255,220,170,0.92);
+    position: relative;
+    margin-top: -2px;
+  }
+  .wax::after {
+    content:'';
+    position:absolute;
+    inset:3px;
+    border-radius:50%;
+    border:1px solid rgba(255,180,110,0.3);
+  }
+
+  #hint {
+    position: absolute;
+    bottom: -56px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    white-space: nowrap;
+    animation: pulse 2.2s ease 1.8s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:0.2} 50%{opacity:1} }
+
+  /* ── PARCHMENT PAGE ── */
+  #scroll-page {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    padding: 3rem 1rem 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* clip starts fully hidden at top, expands downward */
+    clip-path: inset(0 0 100% 0);
+  }
+  #scroll-page.revealed {
+    opacity: 1;
+    pointer-events: auto;
+    clip-path: none;
+  }
+
+  .scroll-wrap { max-width: 720px; width: 100%; }
+
+  .rod {
+    position: relative;
+    height: 28px;
+    z-index: 2;
+  }
+  .rod::before {
+    content:'';
+    position:absolute;
+    left:-8px;right:-8px;top:50%;
+    transform:translateY(-50%);
+    height:22px;
+    background:linear-gradient(180deg,#8B6020 0%,#C9A84C 30%,#E8C96A 50%,#C9A84C 70%,#7A5010 100%);
+    border-radius:11px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.7),inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .rod::after {
+    content:'';
+    position:absolute;
+    left:-18px;right:-18px;top:50%;
+    transform:translateY(-50%);
+    height:26px;
+    background:linear-gradient(180deg,#6B4A10 0%,#A07828 40%,#C9A84C 50%,#A07828 60%,#5A3A08 100%);
+    border-radius:13px;
+    z-index:-1;
+    box-shadow:0 6px 30px rgba(0,0,0,0.8);
+  }
+
+  .parchment {
+    position:relative;
+    background-color:#D4B896;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"),
+      linear-gradient(160deg,#E8D5B5 0%,#D4B896 20%,#C8A87A 50%,#D0B088 70%,#DEC099 100%);
+    padding:3rem 4rem 3.5rem;
+    box-shadow:inset 0 0 80px rgba(100,60,10,0.25),inset 0 0 20px rgba(80,40,5,0.15),0 10px 60px rgba(0,0,0,0.6);
+    border-left:1px solid rgba(100,60,10,0.2);
+    border-right:1px solid rgba(100,60,10,0.2);
+  }
+  .parchment::before {
+    content:'';position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 0% 0%,rgba(80,40,5,0.35) 0%,transparent 40%),
+      radial-gradient(ellipse at 100% 0%,rgba(80,40,5,0.3) 0%,transparent 40%),
+      radial-gradient(ellipse at 0% 100%,rgba(80,40,5,0.35) 0%,transparent 40%),
+      radial-gradient(ellipse at 100% 100%,rgba(80,40,5,0.3) 0%,transparent 40%);
+    pointer-events:none;
+  }
+  .parchment::after {
+    content:'';position:absolute;inset:0;
+    background-image:
+      radial-gradient(ellipse 60px 40px at 15% 25%,rgba(100,60,10,0.07) 0%,transparent 100%),
+      radial-gradient(ellipse 40px 60px at 85% 60%,rgba(100,60,10,0.06) 0%,transparent 100%),
+      radial-gradient(ellipse 80px 30px at 70% 15%,rgba(100,60,10,0.05) 0%,transparent 100%),
+      radial-gradient(ellipse 50px 70px at 20% 80%,rgba(100,60,10,0.08) 0%,transparent 100%);
+    pointer-events:none;
+  }
+
+  .content { position:relative; z-index:1; }
+
+  .rune-line {
+    text-align:center;
+    font-family:'Cinzel Decorative',serif;
+    font-size:20px;
+    color:#6B3D00;
+    letter-spacing:0.4em;
+    margin-bottom:0.5rem;
+    text-shadow:0 1px 2px rgba(255,255,255,0.3);
+  }
+  h1 {
+    text-align:center;
+    font-family:'Cinzel',serif;
+    font-size:clamp(22px,4vw,32px);
+    font-weight:700;
+    color:#3A1F00;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:0.3rem;
+    text-shadow:0 1px 0 rgba(255,255,255,0.4);
+  }
+  .subtitle {
+    text-align:center;
+    font-family:'Cinzel',serif;
+    font-size:10px;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:#7A4A10;
+    margin-bottom:1.5rem;
+    display:block;
+  }
+  .divider { display:flex;align-items:center;gap:1rem;margin:1.2rem 0; }
+  .divider-line { flex:1;height:1px;background:linear-gradient(to right,transparent,#8B5E1A,transparent); }
+  .divider-glyph { color:#8B5E1A;font-size:14px;flex-shrink:0; }
+
+  .lore { font-size:15px;line-height:1.9;color:#2A1200;text-align:justify;margin-bottom:1.5rem; }
+  .dropcap {
+    float:left;
+    font-family:'Cinzel Decorative',serif;
+    font-size:64px;line-height:0.72;
+    margin:6px 8px 0 -4px;
+    color:#6B3D00;
+    text-shadow:2px 2px 0 rgba(0,0,0,0.1);
+  }
+  .games-header {
+    font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;
+    text-transform:uppercase;color:#7A4A10;text-align:center;margin:1.8rem 0 1.2rem;
+  }
+  .game {
+    display:grid;grid-template-columns:44px 1fr;gap:0 1.2rem;
+    padding:0.85rem 0.5rem;border-bottom:1px solid rgba(100,60,10,0.18);align-items:start;
+  }
+  .game:last-of-type { border-bottom:none; }
+  .game-num {
+    font-family:'Cinzel Decorative',serif;font-size:20px;color:#7A4A10;
+    text-align:center;padding-top:2px;text-shadow:0 1px 0 rgba(255,255,255,0.4);
+  }
+  .game-realm {
+    font-family:'Cinzel',serif;font-size:11px;font-weight:600;
+    letter-spacing:0.2em;text-transform:uppercase;color:#5A3200;
+    margin-bottom:3px;display:flex;align-items:center;gap:10px;
+  }
+  .dots { display:flex;gap:4px; }
+  .dot { width:7px;height:7px;border-radius:50%;background:#8B5E1A; }
+  .dot.empty { background:transparent;border:1px solid rgba(100,60,10,0.35); }
+  .game-clue { font-size:14px;font-style:italic;color:#2A1200;line-height:1.55; }
+  .game-clue::before{content:'\201C'} .game-clue::after{content:'\201D'}
+  .closing { text-align:center;font-style:italic;font-size:13px;color:#5A3200;margin-top:2rem;line-height:1.8; }
+  .rune-footer { text-align:center;font-size:16px;color:#7A4A10;letter-spacing:0.35em;margin-top:1rem;font-family:'Cinzel Decorative',serif; }
+  .seal { display:flex;justify-content:center;margin-top:2rem; }
+  .seal-circle {
+    width:72px;height:72px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#C0392B,#7B1A10 60%,#4A0F08);
+    box-shadow:0 4px 20px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,150,100,0.2);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Cinzel Decorative',serif;font-size:22px;color:rgba(255,220,180,0.85);position:relative;
+  }
+  .seal-circle::after { content:'';position:absolute;inset:4px;border-radius:50%;border:1px solid rgba(255,180,120,0.3); }
+
+  @media(max-width:600px){
+    .parchment{padding:2.5rem 1.8rem 3rem;}
+    .dropcap{font-size:48px;}
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <div id="embers" style="position:absolute;inset:0;pointer-events:none;"></div>
+
+  <!-- ROLLED SCROLL -->
+  <div id="rolled" class="bobbing" onclick="startUnfurl()">
+    <div class="cap" id="capTop"></div>
+    <div id="cylinder">
+      <div id="roll-label">
+        <span class="rune">ᚢ ᛗ ᛁ ᚱ</span>
+        <span class="title-big">The Quest<br>of Knowledge</span>
+        <span class="sub">Click to open</span>
+      </div>
+      <div id="seal-group">
+        <div class="ribbon-strip" id="ribbon"></div>
+        <div class="wax" id="wax">ᚢ</div>
+      </div>
+    </div>
+    <div class="cap" id="capBottom"></div>
+    <div id="hint">✦ &nbsp; Click to open &nbsp; ✦</div>
+  </div>
+
+  <!-- PARCHMENT CONTENT -->
+  <div id="scroll-page">
+    <div class="scroll-wrap">
+      <div class="rod"></div>
+      <div class="parchment">
+        <div class="content">
+
+          <div class="rune-line">ᚢ ᛗ ᛁ ᚱ</div>
+          <h1>The Seven Games of Ymir</h1>
+          <span class="subtitle">Lore of the First Giant &nbsp;·&nbsp; Hidden Across the Nine Realms</span>
+
+          <div class="divider"><div class="divider-line"></div><span class="divider-glyph">✦</span><div class="divider-line"></div></div>
+
+          <p class="lore"><span class="dropcap">L</span>ong ago, before the realms were raised from void and word, before the roots of Yggdrasil had yet found soil, there stood a giant. Ymir was his name. He stood over twenty mountains tall and bled naught but life itself. Some say he was the first to bear knowledge — that wisdom pooled in him as meltwater pools in stone, untouched and patient.</p>
+          <p class="lore">Once, in his vastness, Ymir grew bored. And in his frustration — as giants do — he did not weep nor rage nor sleep. He made. Seven games were conjured from the depths of his restlessness, each greater in difficulty than the last, numbered from one to seven, from the earnest to the nearly impossible.</p>
+          <p class="lore">It is said that Ymir imbued each game with a reward of knowledge unbefitting those who wear no crown. Any man or woman to claim all seven would rise above the gods themselves — to become king over all who dwell in the high halls of Asgard.</p>
+
+          <div class="divider"><div class="divider-line"></div><span class="divider-glyph">⚔</span><div class="divider-line"></div></div>
+          <div class="games-header">The Seven Hidden Games</div>
+
+          <div class="game"><div class="game-num">I</div><div><div class="game-realm">Midgard <span class="dots"><span class="dot"></span><span class="dot empty"></span><span class="dot empty"></span><span class="dot empty"></span><span class="dot empty"></span><span class="dot empty"></span><span class="dot empty"></span></span></div><div class="game-clue">The flowers bloom in fear of the depths.</div></div></div>
+          <div class="game"><div class="game-num">II</div><div><div class="game-realm">Alfheim <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot empty"></span><span class="dot empty"></span><span class="dot empty"></span><span class="dot empty"></span><span class="dot empty"></span></span></div><div class="game-clue">The queen lays her lineage to rest.</div></div></div>
+          <div class="game"><div class="game-num">III</div><div><div class="game-realm">Niflheim <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot empty"></span><span class="dot empty"></span><span class="dot empty"></span><span class="dot empty"></span></span></div><div class="game-clue">The peaks meet the skies and far beyond.</div></div></div>
+          <div class="game"><div class="game-num">IV</div><div><div class="game-realm">Svartalfheim <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot empty"></span><span class="dot empty"></span><span class="dot empty"></span></span></div><div class="game-clue">The earth sparkles like the stars above.</div></div></div>
+          <div class="game"><div class="game-num">V</div><div><div class="game-realm">Vanaheim <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot empty"></span><span class="dot empty"></span></span></div><div class="game-clue">Where the fae lay their hearths unseen.</div></div></div>
+          <div class="game"><div class="game-num">VI</div><div><div class="game-realm">Muspelheim <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot empty"></span></span></div><div class="game-clue">Where the heart rests and heats the body.</div></div></div>
+          <div class="game"><div class="game-num">VII</div><div><div class="game-realm">Unknown <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div><div class="game-clue">Hidden away with the most hidden of all.</div></div></div>
+
+          <div class="divider" style="margin-top:1.2rem;"><div class="divider-line"></div><span class="divider-glyph">✦</span><div class="divider-line"></div></div>
+          <p class="closing">None have claimed all seven. None have worn the crown.<br>The giant waits still, patient as the void before the first fire.</p>
+          <div class="rune-footer">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</div>
+          <div class="seal"><div class="seal-circle">ᚢ</div></div>
+        </div>
+      </div>
+      <div class="rod"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ── Embers ── */
+const ec = document.getElementById('embers');
+for (let i = 0; i < 40; i++) {
+  const e = document.createElement('div');
+  e.className = 'ember';
+  const s = 1.5 + Math.random() * 3;
+  e.style.cssText = `
+    left:${10+Math.random()*80}%;bottom:${5+Math.random()*40}%;
+    --dx:${(Math.random()-.5)*90}px;
+    animation-duration:${2.5+Math.random()*4}s;
+    animation-delay:${Math.random()*6}s;
+    width:${s}px;height:${s}px;`;
+  ec.appendChild(e);
+}
+
+/* ── Unfurl ── */
+let going = false;
+
+function startUnfurl() {
+  if (going) return;
+  going = true;
+
+  const rolled = document.getElementById('rolled');
+  const page   = document.getElementById('scroll-page');
+
+  // Hide the scroll immediately, let the parchment anim play
+  rolled.style.display = 'none';
+
+  // Unfurl parchment
+  page.style.opacity = '1';
+  page.style.transition = 'clip-path 1.3s cubic-bezier(0.2,0,0.35,1)';
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      page.style.clipPath = 'inset(0 0 0% 0)';
+    });
+  });
+
+  setTimeout(() => {
+    page.style.transition = 'none';
+    page.style.clipPath = 'none';
+    page.classList.add('revealed');
+  }, 1350);
+}
+</script>
+</body>
+</html>
