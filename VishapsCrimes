@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Glitnir Court of Divine Law — Formal Indictment</title>
+    <style>
+        body {
+            background: #d8c9a3;
+            background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 4px 4px;
+            color: #2b2b2b;
+            font-family: "Garamond", serif;
+            margin: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            border: 2px solid #8b6f3d;
+            padding: 40px;
+            background: linear-gradient(145deg, #f5e6c8, #e4d2a3);
+            box-shadow: 
+                0 0 40px rgba(0,0,0,0.3),
+                inset 0 0 60px rgba(139, 111, 61, 0.2);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #5a3e1b;
+        }
+
+        h3 {
+            color: #6b4a1e;
+            margin-top: 30px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 30px;
+            color: #4a3a1a;
+        }
+
+        .charge {
+            margin-bottom: 20px;
+            padding-left: 12px;
+            border-left: 3px solid #8b6f3d;
+        }
+
+        .count {
+            font-weight: bold;
+            color: #1f1f1f;
+        }
+
+        .note {
+            margin-top: 40px;
+            font-style: italic;
+            text-align: center;
+            color: #5a4a2a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Glitnir Court of Divine Law</h1>
+        <div class="subtitle">
+            Formal Indictment<br>
+            Presiding Judge: Forseti, Son of Baldr, Keeper of Divine Justice
+        </div>
+
+        <p><strong>All charges:</strong> Premeditated<br>
+        <strong>Most charges:</strong> Conspiracy with a Known Confederate</p>
+
+        <h3>Charges of Blood & Slaughter</h3>
+
+        <div class="charge">
+            <div class="count">I. Premeditated Slaying of Baldr Óðinson (+ Confederate)</div>
+            Deicide — First Degree, with Forethought
+        </div>
+
+        <div class="charge">
+            <div class="count">II. Premeditated Slaying of Freyja Njörðsdóttir (+ Confederate)</div>
+            Deicide — First Degree, with Forethought
+        </div>
+
+        <div class="charge">
+            <div class="count">III. Premeditated Slaying of Váli Óðinson (+ Confederate)</div>
+            Deicide — First Degree, with Forethought
+        </div>
+
+        <div class="charge">
+            <div class="count">IV. Murder in the Plurality, with Forethought (+ Confederate)</div>
+            Unlawful Taking of Mortal Life — Multiple Counts, Premeditated
+        </div>
+
+        <h3>Charges Against the Realms</h3>
+
+        <div class="charge">
+            <div class="count">V. Acts of Terror Against the Nine Realms (+ Confederate)</div>
+            High Cosmological Terrorism, Premeditated
+        </div>
+
+        <div class="charge">
+            <div class="count">VI. Treason Against the Divine Order of Ásgarðr (+ Confederate)</div>
+            High Treason — Gods and Realm, with Forethought
+        </div>
+
+        <div class="charge">
+            <div class="count">VII. Unlawful Entry into Ásgarðr (+ Confederate)</div>
+            Divine Trespass — First Realm, Premeditated · Entry via Unlicensed Subterranean Passage
+        </div>
+
+        <div class="charge">
+            <div class="count">VIII. Unlawful Entry into Miðgarðr (+ Confederate)</div>
+            Divine Trespass — Mortal Realm, Premeditated · Entry via Unlicensed Subterranean Passage
+        </div>
+
+        <h3>Charges Against Yggdrasil</h3>
+
+        <div class="charge">
+            <div class="count">IX. Burning of Yggdrasil (+ Confederate)</div>
+            Cosmological Arson — Gravest Degree, with Forethought
+        </div>
+
+        <div class="charge">
+            <div class="count">X. Defacement of Yggdrasil (Sole Actor)</div>
+            Desecration of a Sacred Cosmic Structure, Premeditated
+        </div>
+
+        <div class="charge">
+            <div class="count">XI. Wilful Damage to Yggdrasil (+ Confederate)</div>
+            Criminal Destruction of Cosmic Property, with Forethought
+        </div>
+
+        <div class="charge">
+            <div class="count">XII. Intent to Damage Yggdrasil (+ Confederate)</div>
+            Malicious Forethought — Cosmic Property
+        </div>
+
+        <div class="charge">
+            <div class="count">XIII. Conspiracy in Damage of Yggdrasil (+ Confederate)</div>
+            Aiding and Abetting — Cosmic Property, with Forethought
+        </div>
+
+        <h3>Charges of Theft & Maritime Conduct</h3>
+
+        <div class="charge">
+            <div class="count">XIV. Grand Larceny of Divine Artefacts (+ Confederate)</div>
+            Theft of Sacred Property — Highest Degree, with Forethought
+        </div>
+
+        <div class="charge">
+            <div class="count">XV. Smuggling of Sacred Artefacts (+ Confederate)</div>
+            Interrealm Contraband Transit — Sacred Goods, Premeditated
+        </div>
+
+        <div class="charge">
+            <div class="count">XVI. Operation of an Unregistered Vessel (+ Confederate)</div>
+            Maritime Violation — Registry, Premeditated
+        </div>
+
+        <div class="charge">
+            <div class="count">XVII. Non-Payment of Port Levies (+ Confederate)</div>
+            Maritime Violation — Fiscal, Premeditated
+        </div>
+
+        <div class="charge">
+            <div class="count">XVIII. Evasion from Naval Vanguard (+ Confederate)</div>
+            Obstruction of Divine Law Enforcement, Premeditated
+        </div>
+
+        <h3>Charges of Unlawful Subterranean Transit</h3>
+
+        <div class="charge">
+            <div class="count">XIX. Use of Unlicensed Passageways (+ Confederate)</div>
+            Operation of Unsanctioned Interrealm Tunnelways, Premeditated
+        </div>
+
+        <div class="charge">
+            <div class="count">XX. Circumvention of Border Customs (+ Confederate)</div>
+            Deliberate Evasion of Sanctioned Crossing Points — All Realms Traversed
+        </div>
+
+        <div class="charge">
+            <div class="count">XXI. Patronage of Black Market Enterprise (+ Confederate)</div>
+            Commercial Engagement with Unsanctioned Interrealm Traders, Premeditated
+        </div>
+
+        <div class="note">
+            Total Charges: XXI · Court of Glitnir · By Order of Forseti<br><br>
+            The court further notes the existence of an unidentified Confederate.<br>
+            Their warrant remains pending.
+        </div>
+    </div>
+</body>
+</html>
