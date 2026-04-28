@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Indictment of Ivory</title>
+<style>
+body {
+    background: #d8c9a3;
+    font-family: "Garamond", serif;
+    margin: 40px;
+    color: #2b2b2b;
+}
+.container {
+    max-width: 900px;
+    margin: auto;
+    border: 2px solid #8b6f3d;
+    padding: 40px;
+    background: linear-gradient(145deg, #f5e6c8, #e4d2a3);
+}
+h1, h2, h3 { text-align:center; color:#5a3e1b; }
+.charge {
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border-left: 3px solid #8b6f3d;
+}
+.count { font-weight: bold; }
+.note { margin-top: 40px; text-align:center; font-style:italic; }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>Indictment of Ivory</h1>
+
+<h3>Charges of Arcane Abuse and Interrealm Violations</h3>
+
+<div class="charge"><div class="count">I.</div> Terrorism</div>
+<div class="charge"><div class="count">II.</div> Treason</div>
+<div class="charge"><div class="count">III.</div> Multiple Premeditated Murders</div>
+<div class="charge"><div class="count">IV.</div> Misuse of the Seiðr Spring</div>
+<div class="charge"><div class="count">V.</div> Petty Theft</div>
+<div class="charge"><div class="count">VI.</div> Pickpocketing</div>
+<div class="charge"><div class="count">VII.</div> Murder of Váli Óðinson</div>
+<div class="charge"><div class="count">VIII.</div> Co-Conspiracy with Terror Organization</div>
+<div class="charge"><div class="count">IX.</div> Trespassing in Ásgarðr</div>
+<div class="charge"><div class="count">X.</div> Trespassing in Miðgarðr</div>
+<div class="charge"><div class="count">XI.</div> Evading Naval Forces</div>
+
+<h3>Defilement of the First Accord</h3>
+<div class="charge">
+Documented possession of fair crystals, crimson-forged weaponry, and an unregistered ancient wand.
+</div>
+
+<div class="note">Court of Glitnir · Divine Proceedings Active</div>
+
+</div>
+</body>
+</html>
