@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Indictment of Vash</title>
+<style>
+body {
+    background: #d8c9a3;
+    font-family: "Garamond", serif;
+    margin: 40px;
+    color: #2b2b2b;
+}
+.container {
+    max-width: 900px;
+    margin: auto;
+    border: 2px solid #8b6f3d;
+    padding: 40px;
+    background: linear-gradient(145deg, #f5e6c8, #e4d2a3);
+}
+h1, h2, h3 { text-align:center; color:#5a3e1b; }
+.charge {
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border-left: 3px solid #8b6f3d;
+}
+.count { font-weight: bold; }
+.note { margin-top: 40px; text-align:center; font-style:italic; }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>Indictment of Vash</h1>
+
+<h3>Charges of Terror, War Crimes, and Divine Violations</h3>
+
+<div class="charge"><div class="count">I.</div> Terrorism</div>
+<div class="charge"><div class="count">II.</div> Treason</div>
+<div class="charge"><div class="count">III.</div> Multiple Premeditated Murders</div>
+<div class="charge"><div class="count">IV.</div> Petty Theft</div>
+<div class="charge"><div class="count">V.</div> Murder of Váli Óðinson</div>
+<div class="charge"><div class="count">VI.</div> Co-Conspiracy with Terror Organization</div>
+<div class="charge"><div class="count">VII.</div> Creation of God-Forge Weaponry</div>
+<div class="charge"><div class="count">VIII.</div> Defilement of Divine Corpse</div>
+<div class="charge"><div class="count">IX.</div> Desecration of Divine Corpse</div>
+<div class="charge"><div class="count">X.</div> Evasion of Æsir Forces in Miðgarðr</div>
+<div class="charge"><div class="count">XI.</div> Trespassing in Miðgarðr</div>
+<div class="charge"><div class="count">XII.</div> Trespassing in Ásgarðr</div>
+<div class="charge"><div class="count">XIII.</div> Consumption of the Mead of Poetry</div>
+<div class="charge"><div class="count">XIV.</div> Grand Theft of Divine Weapons</div>
+
+<h3>Defilement of the First Accord</h3>
+<div class="charge">
+Documented possession and use of god-forged weaponry.
+</div>
+
+<div class="note">Court of Glitnir · Divine Proceedings Active</div>
+
+</div>
+</body>
+</html>
